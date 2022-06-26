@@ -111,6 +111,7 @@ namespace MDF_Manager.Classes
         public CompendiumTopLevel RE2DMC5 { get; set; }
         public CompendiumTopLevel RE3 { get; set; }
         public CompendiumTopLevel MHRiseRE8 { get; set; }
+        public CompendiumTopLevel MHRiseSunbreak { get; set; }
 
         protected void OnPropertyChanged([CallerMemberName] string name = null)
         {
@@ -122,7 +123,8 @@ namespace MDF_Manager.Classes
             RE2DMC5 = new CompendiumTopLevel("RE2/DMC5");
             RE3 = new CompendiumTopLevel("RE3");
             MHRiseRE8 = new CompendiumTopLevel("MHRise/RE8");
-            entries = new ObservableCollection<CompendiumTopLevel> { RE7, RE2DMC5, RE3, MHRiseRE8 };
+            MHRiseSunbreak = new CompendiumTopLevel("MHRiseSunbreak");
+            entries = new ObservableCollection<CompendiumTopLevel> { RE7, RE2DMC5, RE3, MHRiseRE8, MHRiseSunbreak };
 
         }
         public void SetEntries(ObservableCollection<CompendiumTopLevel> newEntries)

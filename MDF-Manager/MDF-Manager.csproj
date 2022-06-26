@@ -9,13 +9,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="MDF\example\f_body302.mdf2.23" />
     <None Remove="Resources\downarrow.png" />
     <None Remove="Resources\uparrow.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.1.0" />
+    <Content Include="MDF\example\f_body302.mdf2.23">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.3.0" />
     <PackageReference Include="murmurhash" Version="1.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
   <ItemGroup>

@@ -133,7 +133,7 @@ namespace MDF_Manager
         {
             OpenFileDialog importFile = new OpenFileDialog();
             importFile.Multiselect = false;
-            importFile.Filter = "All readable files|*.6;*.10;*.13;*.19|RE7 Material file (*.6)|*.6|RE2/DMC5 Material file (*.10)|*.10|RE3 Material file (*.13)|*.13|RE8/MHRiseRE8 Material file (*.19)|*.19";
+            importFile.Filter = "All readable files|*.6;*.10;*.13;*.19;*.23|RE7 Material file (*.6)|*.6|RE2/DMC5 Material file (*.10)|*.10|RE3 Material file (*.13)|*.13|RE8/MHRiseRE8 Material file (*.19)|*.19|MHRise Sunbreak Material file (*.23)|*.23";
             if (importFile.ShowDialog() == true)
             {
                 BinaryReader readFile = HelperFunctions.OpenFileR(importFile.FileName, Encoding.Unicode);
@@ -179,7 +179,7 @@ namespace MDF_Manager
                 else
                 {
                     SaveFileDialog saveFile = new SaveFileDialog();
-                    saveFile.Filter = "All readable files|*.6;*.10;*.13;*.19|RE7 Material file (*.6)|*.6|RE2/DMC5 Material file (*.10)|*.10|RE3 Material file (*.13)|*.13|RE8/MHRiseRE8 Material file (*.19)|*.19";
+                    saveFile.Filter = "All readable files|*.6;*.10;*.13;*.19;*.23|RE7 Material file (*.6)|*.6|RE2/DMC5 Material file (*.10)|*.10|RE3 Material file (*.13)|*.13|RE8/MHRiseRE8 Material file (*.19)|*.19|MHRise Sunbreak Material file (*.23)|*.23";
                     saveFile.FileName = System.IO.Path.GetFileName(MDFs[MaterialView.SelectedIndex].Header);
                     if (saveFile.ShowDialog() == true)
                     {
@@ -337,7 +337,7 @@ namespace MDF_Manager
         {
             OpenFileDialog importFile = new OpenFileDialog();
             importFile.Multiselect = false;
-            importFile.Filter = "All readable files|*.6;*.10;*.13;*.19|RE7 Material file (*.6)|*.6|RE2/DMC5 Material file (*.10)|*.10|RE3 Material file (*.13)|*.13|RE8/MHRiseRE8 Material file (*.19)|*.19";
+            importFile.Filter = "All readable files|*.6;*.10;*.13;*.19;*.23|RE7 Material file (*.6)|*.6|RE2/DMC5 Material file (*.10)|*.10|RE3 Material file (*.13)|*.13|RE8/MHRiseRE8 Material file (*.19)|*.19|MHRise Sunbreak Material file (*.23)|*.23";
             if (importFile.ShowDialog() == true)
             {
                 BinaryReader readFile = HelperFunctions.OpenFileR(importFile.FileName, Encoding.Unicode);
@@ -531,7 +531,7 @@ namespace MDF_Manager
         {
             string tabName = (sender as Button).CommandParameter.ToString();
 
-            var item = MaterialView.Items.Cast<MDFFile>().Where(i => i.Header.Equals(tabName)).SingleOrDefault();
+            var item = MaterialView.Items.Cast<MDFFile>().Where(i => i.Header.Equals(tabName)).FirstOrDefault();
 
             MDFFile tab = item as MDFFile;
 
@@ -600,6 +600,9 @@ namespace MDF_Manager
                                 break;
                             case MDFTypes.MHRiseRE8:
                                 parent = compendium.MHRiseRE8;
+                                break;
+                            case MDFTypes.MHRiseSunbreak:
+                                parent = compendium.MHRiseSunbreak;
                                 break;
                             default:
                                 break;
