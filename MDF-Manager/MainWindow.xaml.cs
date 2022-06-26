@@ -559,7 +559,7 @@ namespace MDF_Manager
                     var searchPath = System.IO.Path.GetDirectoryName(fullPath);
                     var enops = new EnumerationOptions();
                     enops.RecurseSubdirectories = true;
-                    var mdfs = System.IO.Directory.GetFiles(searchPath, "*.mdf2.*", enops);//brilliant
+                    var mdfs = Directory.GetFiles(searchPath, "*.mdf2.*", enops);//brilliant
                     foreach (var mdf in mdfs)
                     {
                         //gonna abuse the fact everything is by reference

@@ -7,7 +7,6 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows;
-using Newtonsoft.Json;
 
 namespace MDF_Manager.Classes
 {
@@ -53,14 +52,6 @@ namespace MDF_Manager.Classes
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        public static Material Clone(Material source)
-        {
-            var serialized = JsonConvert.SerializeObject(source, new JsonSerializerSettings()
-            {
-                TypeNameHandling = TypeNameHandling.Auto
-            });
-            return JsonConvert.DeserializeObject<Material>(serialized);
-        }
 
         public List<byte> GenerateStringTable(ref List<int> offsets)
         {
