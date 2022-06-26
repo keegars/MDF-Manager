@@ -4,9 +4,9 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         Title="Color Picker" Height="400" Width="300">
     <Grid>
-        <xctk:ColorCanvas x:Name="colorCanvas"/>
-        <TextBox Name="ColorEntry" MinWidth="100" MaxWidth="150" Height="20" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="30" Text=""/>
-        <Button MinHeight="15" MaxHeight="20" MinWidth="100" MaxWidth="150" HorizontalAlignment="Left" Content="Apply" Click="ApplyColor" VerticalAlignment="Bottom" Margin="30,0,0,10"/>
-        <Button MinWidth="100" MaxWidth="150" Height="25" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="30" Content="Confirm" Click="Confirm"/>
+        <xctk:ColorCanvas x:Name="colorCanvas" />
+        <TextBox Name="ColorEntry" MinWidth="100" MaxWidth="150" Height="20" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="30" Text="" />
+        <Button MinHeight="15" MaxHeight="20" MinWidth="100" MaxWidth="150" HorizontalAlignment="Left" Content="Apply" Click="ApplyColor" VerticalAlignment="Bottom" Margin="30,0,0,10" />
+        <Button MinWidth="100" MaxWidth="150" Height="25" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="30" Content="Confirm" Click="Confirm" />
     </Grid>
-</Window> 
+</Window>

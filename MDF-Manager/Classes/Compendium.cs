@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MDF_Manager.Classes
 {
@@ -15,108 +12,120 @@ namespace MDF_Manager.Classes
         private string _MDFPath;
         public string Header { get; set; }
         public ObservableCollection<CompendiumEntry> Items { get; set; }
-        public string MDFPath { get => _MDFPath; set { _MDFPath = value; Header = value;} }
+        public string MDFPath { get { return _MDFPath; } set { _MDFPath = value; Header = value; } }
         public CompendiumEntry()
         {
             Items = new ObservableCollection<CompendiumEntry>();
             MDFPath = "";
-
         }
+
         public CompendiumEntry(string path)
         {
             Items = new ObservableCollection<CompendiumEntry>(); //how did this not crash
             MDFPath = path;
         }
     }
+
     public class CompendiumEntryHeader : IComparable<CompendiumEntryHeader>
     {
         private string _MMTRName;
         public string Header { get; set; }
         public ObservableCollection<CompendiumEntry> Items { get; set; }
-        public string MMTRName { get => _MMTRName; set { _MMTRName = value; Header = value; } }
+        public string MMTRName { get { return _MMTRName; } set { _MMTRName = value; Header = value; } }
         public CompendiumEntryHeader()
         {
             Items = new ObservableCollection<CompendiumEntry>();
             MMTRName = "";
         }
+
         public CompendiumEntryHeader(string mmtr)
         {
             Items = new ObservableCollection<CompendiumEntry>();
             MMTRName = mmtr;
         }
+
         public int FindEntry(string path)
         {
-            for(int i = 0; i < Items.Count; i++)
+            for (var i = 0; i < Items.Count; i++)
             {
-                if(Items[i].MDFPath == path)
+                if (Items[i].MDFPath == path)
                 {
                     return i;
                 }
             }
             return -1;//the wanted approach here
         }
+
         public int CompareTo(CompendiumEntryHeader compare)
         {
             if (compare == null)
             {
                 return 1;
             }
-            else return this.MMTRName.CompareTo(compare.MMTRName);
+            else
+            {
+                return MMTRName.CompareTo(compare.MMTRName);
+            }
         }
     }
+
     public class CompendiumTopLevel : INotifyPropertyChanged
     {
-        //entryHeader contains children as 
+        //entryHeader contains children as
         private string _Game;
+        private List<CompendiumEntryHeader> _Items = new();
         public string Header { get; set; }
-        private List<CompendiumEntryHeader> _Items = new List<CompendiumEntryHeader>();
-        public ObservableCollection<CompendiumEntryHeader> Items { get => new ObservableCollection<CompendiumEntryHeader>(_Items); set { _Items = new List<CompendiumEntryHeader>(value); OnPropertyChanged("Items"); } }
-        public string Game { get => _Game; set { _Game = value; Header = value; } }
+        public ObservableCollection<CompendiumEntryHeader> Items { get { return new ObservableCollection<CompendiumEntryHeader>(_Items); } set { _Items = new List<CompendiumEntryHeader>(value); OnPropertyChanged("Items"); } }
+        public string Game { get { return _Game; } set { _Game = value; Header = value; } }
         public CompendiumTopLevel()
         {
             Game = "";
         }
+
         public CompendiumTopLevel(string game)
         {
             Game = game;
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
         public void ClearChildren()
         {
             _Items.Clear();
         }
+
         public void Sort()
         {
             _Items.Sort();
             OnPropertyChanged("Items");
         }
+
         public void AddChild(CompendiumEntryHeader ceh)
         {
             _Items.Add(ceh);
         }
+
         public CompendiumEntryHeader FindItem(Predicate<CompendiumEntryHeader> predicate)
         {
             return _Items.Find(predicate);
         }
-        protected void OnPropertyChanged([CallerMemberName] string name = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
-        public event PropertyChangedEventHandler PropertyChanged;
-    }
-    public class Compendium : INotifyPropertyChanged
-    {
-        public ObservableCollection<CompendiumTopLevel> entries { get; set; }
-        //here, set references to each one, so we can attach to them
-        public CompendiumTopLevel RE7 { get; set; }
-        public CompendiumTopLevel RE2DMC5 { get; set; }
-        public CompendiumTopLevel RE3 { get; set; }
-        public CompendiumTopLevel MHRiseRE8 { get; set; }
-        public CompendiumTopLevel MHRiseSunbreak { get; set; }
 
         protected void OnPropertyChanged([CallerMemberName] string name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
+    }
+
+    public class Compendium : INotifyPropertyChanged
+    {
+        public ObservableCollection<CompendiumTopLevel> entries { get; set; }
+        //here, set references to each one, so we can attach to them
+        public CompendiumTopLevel RE7 { get; set; }
+
+        public CompendiumTopLevel RE2DMC5 { get; set; }
+        public CompendiumTopLevel RE3 { get; set; }
+        public CompendiumTopLevel MHRiseRE8 { get; set; }
+        public CompendiumTopLevel MHRiseSunbreak { get; set; }
+
         public Compendium()
         {
             RE7 = new CompendiumTopLevel("RE7");
@@ -125,8 +134,9 @@ namespace MDF_Manager.Classes
             MHRiseRE8 = new CompendiumTopLevel("MHRise/RE8");
             MHRiseSunbreak = new CompendiumTopLevel("MHRiseSunbreak");
             entries = new ObservableCollection<CompendiumTopLevel> { RE7, RE2DMC5, RE3, MHRiseRE8, MHRiseSunbreak };
-
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
         public void SetEntries(ObservableCollection<CompendiumTopLevel> newEntries)
         {
             entries = newEntries;
@@ -136,12 +146,12 @@ namespace MDF_Manager.Classes
 
         public void ClearList()
         {
-            foreach(CompendiumTopLevel ctl in entries)
+            foreach (var ctl in entries)
             {
                 ctl.ClearChildren();
             }
         }
-        
+
         public void Sort()
         {
             RE7.Sort();
@@ -150,6 +160,10 @@ namespace MDF_Manager.Classes
             MHRiseRE8.Sort();
             OnPropertyChanged("entries");
         }
-        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
     }
 }
